@@ -1,0 +1,29 @@
+{
+	"FileVersion": 3,
+	"Version": 1,
+	"VersionName": "1.0",
+	"FriendlyName": "Blueprint_C",
+	"Description": "",
+	"Category": "Other",
+	"CreatedBy": "Italink",
+	"CreatedByURL": "",
+	"DocsURL": "https://github.com/Italink/Blueprint_C",
+	"MarketplaceURL": "",
+	"SupportURL": "https://github.com/Italink/Blueprint_C/issues",
+	"CanContainContent": true,
+	"IsBetaVersion": false,
+	"IsExperimentalVersion": false,
+	"Installed": false,
+	"Modules": [
+		{
+			"Name": "Blueprint_C",
+			"Type": "Runtime",
+			"LoadingPhase": "PostEngineInit"
+		},
+		{
+			"Name": "Blueprint_CEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit"
+		}
+	]
+}
