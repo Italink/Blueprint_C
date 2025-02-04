@@ -244,8 +244,7 @@ TPair<FString, FString> FBlueprint_C::GenerateCode(UClass* InClass, UClass* InSu
 	TArray<FBlueprint_C::FFunctionDefinition> Functions;
 	if (bWithProperty) {
 		UClass* CurrentClass = InClass;
-		while (CurrentClass)
-		{
+		while (CurrentClass){
 			for (TFieldIterator<FProperty> PropertyIterator(CurrentClass, EFieldIteratorFlags::ExcludeSuper, EFieldIteratorFlags::ExcludeDeprecated); PropertyIterator; ++PropertyIterator) {
 				Properties.Add(FBlueprint_C::FPropertyDefinition(*PropertyIterator));
 			}
@@ -261,8 +260,7 @@ TPair<FString, FString> FBlueprint_C::GenerateCode(UClass* InClass, UClass* InSu
 	}
 	if (bWithFunction) {
 		UClass* CurrentClass = InClass;
-		while (CurrentClass)
-		{
+		while (CurrentClass){
 			for (TFieldIterator<UFunction> FunctionIterator(CurrentClass, EFieldIteratorFlags::ExcludeSuper, EFieldIteratorFlags::ExcludeDeprecated); FunctionIterator; ++FunctionIterator) {
 				Functions.Add(FBlueprint_C::FFunctionDefinition(*FunctionIterator));
 			}
@@ -404,8 +402,9 @@ TPair<FString, FString> FBlueprint_C::GenerateCode(UClass* InClass, UClass* InSu
 				for (auto MetaData : FunctionDef.MetaData) {
 					MetaDataString += FString::Printf(TEXT(", %s=\"%s\""), *MetaData.Key.ToString(), *MetaData.Value);
 				}
-				if (!MetaDataString.IsEmpty())
+				if (!MetaDataString.IsEmpty()) {
 					MacroString += FString::Printf(TEXT(", Meta = (%s)"), *MetaDataString.RightChop(2)).Replace(TEXT("\n"), TEXT("\\n"));
+				}
 			}
 			if (!MacroString.IsEmpty())
 				MacroString = MacroString.RightChop(2);

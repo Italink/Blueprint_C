@@ -9,9 +9,8 @@ FBlueprint_CEditorSummoner::FBlueprint_CEditorSummoner(TSharedPtr<FBlueprintEdit
 	, WeakBlueprintEditor(BlueprintEditor)
 {
 	TabLabel = LOCTEXT("Blueprint_C", "Blueprint_C");
-	TabIcon = FSlateIcon(FAppStyle::GetAppStyleSetName(), "EditorPreferences.TabIcon");
+	TabIcon = FSlateIcon(FAppStyle::GetAppStyleSetName(), "MainFrame.AddCodeToProject");
 	bIsSingleton = true;
-
 	ViewMenuDescription = LOCTEXT("Blueprint_C", "Blueprint_C");
 	ViewMenuTooltip = LOCTEXT("Blueprint_C", "Blueprint_C");
 }
