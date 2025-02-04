@@ -15,7 +15,6 @@ void FBlueprint_CEditorModule::StartupModule()
 	IUMGEditorModule& UMGEditorModule = FModuleManager::LoadModuleChecked<IUMGEditorModule>("UMGEditor");
 	UMGEditorModule.OnRegisterTabsForEditor().AddRaw(this, &FBlueprint_CEditorModule::RegisterUMGEditorTab);
 
-
 	//UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("AssetEditor.BlueprintEditor.ToolBar");
 	//FToolMenuSection& Section = ToolbarMenu->AddSection("Blueprint_C");
 	//Section.AddDynamicEntry("Blueprint_C", FNewToolMenuSectionDelegate::CreateLambda([this](FToolMenuSection& InSection) {
@@ -53,7 +52,7 @@ void FBlueprint_CEditorModule::ShutdownModule()
 
 void FBlueprint_CEditorModule::RegisterBlueprintEditorTab(FWorkflowAllowedTabSet& TabFactories, FName InModeName, TSharedPtr<FBlueprintEditor> BlueprintEditor)
 {
-
+	TabFactories.RegisterFactory(MakeShared<FBlueprint_CEditorSummoner>(BlueprintEditor));
 }
 
 void FBlueprint_CEditorModule::RegisterUMGEditorTab(const FWidgetBlueprintApplicationMode& Mode, FWorkflowAllowedTabSet& TabFactories)
