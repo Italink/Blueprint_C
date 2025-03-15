@@ -33,7 +33,10 @@ namespace FBlueprint_C{
 	FString GetDelegateFullName(UFunction* InSignatureFunction);
 	FString GetPropertyTypeString(FProperty* InProperty);
 	FString GetPropertyRawTypeString(FProperty * InProperty);
-	TPair<FString, FString> GetAutoGenerateFilePath(UClass* InClass);
 
 	TPair<FString, FString> GenerateCode(UClass* InClass, UClass* InSuperClass = UObject::StaticClass(), bool bSplitHeader = false, bool bWithProperty = true, bool bWithFunction = true, bool bWithMarco = true, bool bWithMetaData = true);
+
+	bool IsAutoGenerateEnabled(UBlueprint* InBlueprint);
+	void SetAutoGenerateEnabled(UBlueprint* InBlueprint, bool bEnabled);
+	void TryAutoGenerate(UBlueprint* InBlueprint, TPair<FString, FString> Code);
 }

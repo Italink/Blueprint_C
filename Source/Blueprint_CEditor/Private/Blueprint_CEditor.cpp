@@ -39,8 +39,7 @@ void SBlueprint_CCodeEditor::Construct(const FArguments& InArgs, TWeakPtr<FBluep
 	auto DetailsView = EditModule.CreateDetailView(DetailsViewArgs);
 
 	UBlueprint_CEditorSettings* Settings = GetMutableDefault<UBlueprint_CEditorSettings>();
-	Settings->SuperClass = FBlueprint_C::GetStructFullName(Blueprint->ParentClass);
-	Settings->CurrentClass = Blueprint->GeneratedClass;
+	Settings->SetCurrentClass(Blueprint->GeneratedClass, FBlueprint_C::GetStructFullName(Blueprint->ParentClass));
 
 	DetailsView->SetObject(Settings);
 	DetailsView->OnFinishedChangingProperties().AddSP(this, &SBlueprint_CCodeEditor::OnSettingsChanged);
@@ -164,68 +163,8 @@ void SBlueprint_CCodeEditor::RefreshCode()
 				GeneratedHeader.Text->SetText(FText::FromString(Code.Key));
 				GeneratedSource.Text->SetText(FText::FromString(Code.Value));
 			});
+			FBlueprint_C::TryAutoGenerate(Blueprint, Code);
 		});
-	}
-}
-
-void SBlueprint_CToolbarButton::Construct(const FArguments& InArgs, TObjectPtr<UBlueprint> InBlueprint)
-{
-	Blueprint = InBlueprint;
-	Blueprint->OnCompiled().AddSP(this, &SBlueprint_CToolbarButton::OnBlueprintCompiled);
-	ChildSlot
-	.Padding(5)
-	[
-		SNew(SHorizontalBox)
-			.ToolTipText(LOCTEXT("Blueprint_CAutoGen", "Auto Generate Blueprint_C"))
-			+ SHorizontalBox::Slot()
-			.VAlign(VAlign_Center)
-			.AutoWidth()
-			[
-				SNew(SImage)
-					.DesiredSizeOverride(FVector2D(20,20))
-					.Image(FAppStyle::GetBrush("MainFrame.AddCodeToProject"))
-			]
-			+ SHorizontalBox::Slot()
-			.VAlign(VAlign_Center)
-			.Padding(5, 0)
-			[
-				SNew(SCheckBox)
-					.IsChecked(this, &SBlueprint_CToolbarButton::IsAutoGenerateEnabled)
-					.OnCheckStateChanged(this, &SBlueprint_CToolbarButton::OnAutoGenerateChanged)
-			]
-	];
-}
-
-SBlueprint_CToolbarButton::~SBlueprint_CToolbarButton()
-{
-}
-
-void SBlueprint_CToolbarButton::OnBlueprintCompiled(UBlueprint* InBlueprint)
-{
-	if (IsAutoGenerateEnabled() == ECheckBoxState::Checked) {
-		TPair<FString, FString> FilePath = FBlueprint_C::GetAutoGenerateFilePath(InBlueprint->GeneratedClass);
-		TPair<FString, FString> Code = FBlueprint_C::GenerateCode(InBlueprint->GeneratedClass);
-		FFileHelper::SaveStringToFile(Code.Key, *FilePath.Key);
-		FFileHelper::SaveStringToFile(Code.Value, *FilePath.Value);
-	}
-}
-
-ECheckBoxState SBlueprint_CToolbarButton::IsAutoGenerateEnabled() const
-{
-	if (Blueprint) {
-		Blueprint->Modify();
-		return Blueprint->HideCategories.Contains("Blueprint_C") ? ECheckBoxState::Checked : ECheckBoxState::Unchecked;
-	}
-	return ECheckBoxState::Unchecked;
-}
-
-void SBlueprint_CToolbarButton::OnAutoGenerateChanged(ECheckBoxState InState)
-{
-	if (InState == ECheckBoxState::Checked) {
-		Blueprint->HideCategories.AddUnique("Blueprint_C");
-	}
-	else {
-		Blueprint->HideCategories.Remove("Blueprint_C");
 	}
 }
 

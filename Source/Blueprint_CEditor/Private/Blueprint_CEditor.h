@@ -56,20 +56,3 @@ protected:
 	int32 CurrentFoundTextEntry;
 };
 
-class SBlueprint_CToolbarButton : public SCompoundWidget
-{
-public:
-	SLATE_BEGIN_ARGS(SBlueprint_CToolbarButton) {}
-	SLATE_END_ARGS();
-
-	void Construct(const FArguments& InArgs, TObjectPtr<UBlueprint> InBlueprint);
-	virtual ~SBlueprint_CToolbarButton();
-	void OnBlueprintCompiled(UBlueprint* InBlueprint);
-
-	ECheckBoxState IsAutoGenerateEnabled() const;
-	void OnAutoGenerateChanged(ECheckBoxState InState);
-protected:
-	TObjectPtr<UBlueprint> Blueprint;
-};
-
-

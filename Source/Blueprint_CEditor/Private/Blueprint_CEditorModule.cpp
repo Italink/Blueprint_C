@@ -14,25 +14,6 @@ void FBlueprint_CEditorModule::StartupModule()
 
 	IUMGEditorModule& UMGEditorModule = FModuleManager::LoadModuleChecked<IUMGEditorModule>("UMGEditor");
 	UMGEditorModule.OnRegisterTabsForEditor().AddRaw(this, &FBlueprint_CEditorModule::RegisterUMGEditorTab);
-
-	//UToolMenu* ToolbarMenu = UToolMenus::Get()->ExtendMenu("AssetEditor.BlueprintEditor.ToolBar");
-	//FToolMenuSection& Section = ToolbarMenu->AddSection("Blueprint_C");
-	//Section.AddDynamicEntry("Blueprint_C", FNewToolMenuSectionDelegate::CreateLambda([this](FToolMenuSection& InSection) {
-	//	if (auto EditorContext = InSection.FindContext<UAssetEditorToolkitMenuContext>()) {
-	//		TWeakPtr<FAssetEditorToolkit> ToolkitPtr = EditorContext->Toolkit;
-	//		auto Objects = ToolkitPtr.Pin()->GetObjectsCurrentlyBeingEdited();
-	//		UBlueprint* Blueprint = nullptr;
-	//		if (Objects->Num() == 1)
-	//			Blueprint = Cast<UBlueprint>((*Objects)[0]);
-	//		if (Blueprint) {
-	//			InSection.AddEntry(FToolMenuEntry::InitWidget(
-	//				"Blueprint_C"
-	//				, SNew(SBlueprint_CToolbarButton, Blueprint)
-	//				, LOCTEXT("Blueprint_C", "Blueprint_C")
-	//			));
-	//		}
-	//	}
-	//}));
 }
 
 void FBlueprint_CEditorModule::ShutdownModule()

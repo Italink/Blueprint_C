@@ -27,6 +27,13 @@ public:
 	UPROPERTY(Transient)
 	TObjectPtr<UClass> CurrentClass;
 
+	UPROPERTY(EditAnywhere)
+	bool bAutoGenerate = false;
+
 	UFUNCTION()
 	TArray<FString> GetSuperClassList();
+
+	void SetCurrentClass(UClass* InCurrentClass, FString InSuperClass);
+
+	virtual void PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent) override;
 }; 
