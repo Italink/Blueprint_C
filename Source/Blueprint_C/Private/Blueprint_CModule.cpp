@@ -1,5 +1,4 @@
 ﻿#include "Blueprint_CModule.h"
-#include "BlueprintEditorModule.h"
 
 #define LOCTEXT_NAMESPACE "Blueprint_C"
 

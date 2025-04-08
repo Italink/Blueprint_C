@@ -25,10 +25,6 @@ public class Blueprint_C : ModuleRules
                 "RHI",
                 "Slate",
                 "SlateCore",
-                "PropertyEditor",
-                "UnrealEd",
-                "EditorStyle",
-                "ToolMenus",
 			}
 			);
 	}
