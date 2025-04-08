@@ -5,7 +5,7 @@
 #include "BlueprintEditor.h"
 #include "BlueprintModes/WidgetBlueprintApplicationMode.h"
 
-class FBlueprint_CEditorModule : public IModuleInterface
+class FBlueprint_CModule : public IModuleInterface
 {
 public:
 protected:

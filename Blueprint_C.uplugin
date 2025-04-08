@@ -17,11 +17,6 @@
 	"Modules": [
 		{
 			"Name": "Blueprint_C",
-			"Type": "Runtime",
-			"LoadingPhase": "PostEngineInit"
-		},
-		{
-			"Name": "Blueprint_CEditor",
 			"Type": "Editor",
 			"LoadingPhase": "PostEngineInit"
 		}

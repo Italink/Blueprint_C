@@ -1,4 +1,4 @@
-﻿#include "Blueprint_CEditorModule.h"
+﻿#include "Blueprint_CModule.h"
 #include "Blueprint_CUtils.h"
 #include "BlueprintEditorModule.h"
 #include "Blueprint_CEditor.h"
@@ -7,16 +7,16 @@
 
 #define LOCTEXT_NAMESPACE "Blueprint_C"
 
-void FBlueprint_CEditorModule::StartupModule()
+void FBlueprint_CModule::StartupModule()
 {
 	FBlueprintEditorModule& BlueprintEditorModule = FModuleManager::LoadModuleChecked<FBlueprintEditorModule>("Kismet");
-	BlueprintEditorModule.OnRegisterTabsForEditor().AddRaw(this, &FBlueprint_CEditorModule::RegisterBlueprintEditorTab);
+	BlueprintEditorModule.OnRegisterTabsForEditor().AddRaw(this, &FBlueprint_CModule::RegisterBlueprintEditorTab);
 
 	IUMGEditorModule& UMGEditorModule = FModuleManager::LoadModuleChecked<IUMGEditorModule>("UMGEditor");
-	UMGEditorModule.OnRegisterTabsForEditor().AddRaw(this, &FBlueprint_CEditorModule::RegisterUMGEditorTab);
+	UMGEditorModule.OnRegisterTabsForEditor().AddRaw(this, &FBlueprint_CModule::RegisterUMGEditorTab);
 }
 
-void FBlueprint_CEditorModule::ShutdownModule()
+void FBlueprint_CModule::ShutdownModule()
 {
 	FBlueprintEditorModule* BlueprintEditorModule = FModuleManager::GetModulePtr<FBlueprintEditorModule>("Kismet");
 	if (BlueprintEditorModule)
@@ -31,16 +31,16 @@ void FBlueprint_CEditorModule::ShutdownModule()
 	}
 }
 
-void FBlueprint_CEditorModule::RegisterBlueprintEditorTab(FWorkflowAllowedTabSet& TabFactories, FName InModeName, TSharedPtr<FBlueprintEditor> BlueprintEditor)
+void FBlueprint_CModule::RegisterBlueprintEditorTab(FWorkflowAllowedTabSet& TabFactories, FName InModeName, TSharedPtr<FBlueprintEditor> BlueprintEditor)
 {
 	TabFactories.RegisterFactory(MakeShared<FBlueprint_CEditorSummoner>(BlueprintEditor));
 }
 
-void FBlueprint_CEditorModule::RegisterUMGEditorTab(const FWidgetBlueprintApplicationMode& Mode, FWorkflowAllowedTabSet& TabFactories)
+void FBlueprint_CModule::RegisterUMGEditorTab(const FWidgetBlueprintApplicationMode& Mode, FWorkflowAllowedTabSet& TabFactories)
 {
 	TabFactories.RegisterFactory(MakeShared<FBlueprint_CEditorSummoner>(Mode.GetBlueprintEditor()));
 }
 
 #undef LOCTEXT_NAMESPACE
 
-IMPLEMENT_MODULE(FBlueprint_CEditorModule, Blueprint_CEditor)
+IMPLEMENT_MODULE(FBlueprint_CModule, Blueprint_CEditor)

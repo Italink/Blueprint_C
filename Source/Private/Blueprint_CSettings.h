@@ -1,9 +1,9 @@
 ﻿#pragma once
 
-#include "Blueprint_CEditorSettings.generated.h"
+#include "Blueprint_CSettings.generated.h"
 
-UCLASS(EditInlineNew, CollapseCategories, config = Blueprint_CEditorSettings)
-class UBlueprint_CEditorSettings : public UObject {
+UCLASS(EditInlineNew, CollapseCategories, config = Blueprint_CSettings)
+class UBlueprint_CSettings : public UObject {
 	GENERATED_BODY()
 public:
 	UPROPERTY(EditAnywhere, Config, meta = (GetOptions = "GetSuperClassList"))

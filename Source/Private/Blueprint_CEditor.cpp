@@ -1,6 +1,6 @@
 ﻿#include "Blueprint_CEditor.h"
 #include "Blueprint_CUtils.h"
-#include "Blueprint_CEditorSettings.h"
+#include "Blueprint_CSettings.h"
 
 #define LOCTEXT_NAMESPACE "Blueprint_C"
 
@@ -38,7 +38,7 @@ void SBlueprint_CCodeEditor::Construct(const FArguments& InArgs, TWeakPtr<FBluep
 	DetailsViewArgs.ViewIdentifier = FName("BlueprintDefaults");
 	auto DetailsView = EditModule.CreateDetailView(DetailsViewArgs);
 
-	UBlueprint_CEditorSettings* Settings = GetMutableDefault<UBlueprint_CEditorSettings>();
+	UBlueprint_CSettings* Settings = GetMutableDefault<UBlueprint_CSettings>();
 	Settings->SetCurrentClass(Blueprint->GeneratedClass, FBlueprint_C::GetStructFullName(Blueprint->ParentClass));
 
 	DetailsView->SetObject(Settings);
@@ -136,7 +136,7 @@ void SBlueprint_CCodeEditor::OnBlueprintCompiled(UBlueprint* InBlueprint)
 void SBlueprint_CCodeEditor::OnSettingsChanged(const FPropertyChangedEvent& ChangedEvent)
 {
 	RefreshCode();
-	UBlueprint_CEditorSettings* Settings = GetMutableDefault<UBlueprint_CEditorSettings>();
+	UBlueprint_CSettings* Settings = GetMutableDefault<UBlueprint_CSettings>();
 	Settings->TryUpdateDefaultConfigFile();
 }
 
@@ -144,7 +144,7 @@ void SBlueprint_CCodeEditor::RefreshCode()
 {
 	UBlueprint* Blueprint = WeakBlueprintEditor.Pin()->GetBlueprintObj();
 	if (Blueprint) {
-		UBlueprint_CEditorSettings* Settings = GetMutableDefault<UBlueprint_CEditorSettings>();
+		UBlueprint_CSettings* Settings = GetMutableDefault<UBlueprint_CSettings>();
 		TObjectPtr<UClass> SuperClass = UObject::StaticClass();
 		TObjectPtr<UClass> Class = Settings->CurrentClass = Blueprint->GeneratedClass;
 		while (Class) {

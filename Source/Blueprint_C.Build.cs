@@ -3,9 +3,9 @@
 using UnrealBuildTool;
 using UnrealBuildTool.Rules;
 
-public class Blueprint_CEditor : ModuleRules
+public class Blueprint_C : ModuleRules
 {
-	public Blueprint_CEditor(ReadOnlyTargetRules Target) : base(Target)
+	public Blueprint_C(ReadOnlyTargetRules Target) : base(Target)
 	{
 		PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 		
