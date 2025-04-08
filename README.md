@@ -7,7 +7,7 @@
 
 在蓝图编辑器标题栏的 `Window` 菜单下可以打开 `Blueprint_C` 的面板：
 
-![image-20250204112923728](Resources/image-20250204112923728.png)
+![image-20250408185302805](Resources/image-20250408185302805.png)
 
 面板中可调参数的作用如下：
 
@@ -17,6 +17,7 @@
 - **Macro**：是否生成UHT宏
 - **Meta Data**：是否在UHT宏中显示元数据
 - **Split Header**：是否将代码分割为头文件和源文件
+- **Auto Generate** ： 是否自动生成代码文件到源码工程中
 
 在蓝图编辑器中执行编译会自动刷新生成代码。
 
@@ -41,7 +42,18 @@ FString OutParam2;
 NewBlueprintObj->NewFunction(true, 0, OutParam1, OutParam2);
 ```
 
-## Todo
+### 自动生成
 
-- 模块代码自动生成（自动响应蓝图变更，生成头文件依赖，刷新工程文件）
-- UMG MVC框架
+勾选了 **Auto Generate** 的蓝图，会在编译保存时，将自动生成一个 `*.inl`代码文件到项目源码目录相同的文件结构下
+
+![image-20250408185731888](Resources/image-20250408185731888.png)
+
+你只需要在C++代码中包含即可使用：
+``` c++
+#include "..."     // some header files for dependencies
+#include "NewBlueprint.inl"
+```
+
+如果需要修改导出目录的规则，请修改如下函数的实现：
+
+- `void FBlueprint_C::TryAutoGenerate(UBlueprint* InBlueprint, TPair<FString, FString> Code)`
